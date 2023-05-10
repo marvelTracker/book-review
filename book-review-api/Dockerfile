@@ -1,4 +1,4 @@
-FROM node:12.17.0-alpine
+FROM node:20.1.0-alpine3.17
 WORKDIR /app
 COPY package.json ./
 COPY tsconfig.json ./
@@ -8,7 +8,7 @@ RUN npm install
 RUN npm run build
 
 ## this is stage two , where the app actually runs
-FROM node:12.17.0-alpine
+FROM node:20.1.0-alpine3.17
 WORKDIR /app
 COPY package.json ./
 RUN npm install --only=production

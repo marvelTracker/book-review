@@ -1,7 +1,7 @@
 {
-  "name": "js-template",
+  "name": "book-reviews-api",
   "version": "1.0.0",
-  "description": "bare-minimum node js + type script template",
+  "description": "Book reviews api",
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
