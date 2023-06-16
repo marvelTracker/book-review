@@ -1,0 +1,100 @@
+
+REST:
+
+- Architectural approach or a Standard way of working in HTTP Protocol
+- Design around resources
+- Platform Independent
+- Uniform interface
+	Http request and responses
+- Stateless
+
+URL vs URI
+
+URI - Uniform Resource Identifier
+	Identify a web resource by location, name or both in internet.
+
+URL - Uniform Resource Locator
+    Identify a resource by location
+    Ex: https://google.com/images/home.jpg
+    Sub set of URI
+
+URN - Uniform Resource Name
+    Globally unique identifiers
+    Ex: urn:isbn:12344
+    Subset of URI
+
+Resources should be Nouns not verbs
+
+Ex:
+Customer Resource:
+customers ✅
+
+GetAllCustomers - ❌
+GetCustomerById - ❌
+
+Resources should be Collections
+    Collection is separate resource from item
+    Each item is an unique URL
+    Use plural nouns for URLs
+    Resources in lower cases
+    Use hyphens to separate words
+
+/customers ✅
+/Customers ❌
+/customer ❌
+/elite-customers ✅
+
+Identifies used in the api must be unique
+
+Non-resource Data should be consider as Query parameters
+    Filter
+        /books?genre=non-fiction
+
+    Sort
+        /books?sortBy=title
+
+    Pagination
+        /books?page=10&size=20
+
+Defining Relationships between resources
+
+    Find the relationship between resources
+    URl navigation between them
+
+    /api/books/{id}
+    /api/books/{id}/reviews
+    /api/reviews
+    /api/books/{id}/authors
+    /api/authors/
+
+Sub-objects should return same format as collections
+
+URL shouldn't be Complex
+    Short, simple, follow below for maximum length
+    i.e collection/item/collection
+
+/api/books/{id}/reviews ✅
+/api/books/{id} ✅
+
+/api/books/{id}/authors/{id}/genres ❌
+
+Redesign Complex URLs
+
+/api/authors/{id}/genres ✅
+
+Combine Related Resources
+    Consider to add the sub resources to embed into main resource
+    Individual URLs vs Combine into sub-resources
+
+HTTP Operations
+
+GET, POST, PUT, DELETE, PATCH(Partial update)
+
+Idempotent:
+    Multiple requests has same result
+    GET, PUT, DELETE are idempotent operations
+    POST, PATCH are NOT idempotent
+
+/api/books (generally collections have GET, POST)
+/api/books/:id (generally item has GET, PUT, DELETE, PATCH)
+

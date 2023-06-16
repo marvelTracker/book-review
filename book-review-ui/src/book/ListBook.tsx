@@ -16,7 +16,12 @@ export class ListBook extends React.Component<AppProps, AppState> {
   }
 
   fetchBooks = () => {
-    fetch(process.env.BASE_URL_BOOK_REVIEW_API + "/api/book")
+    console.log(
+      "process.env.REACT_APP_BASE_URL_BOOK_REVIEW_API" +
+        process.env.REACT_APP_BASE_URL_BOOK_REVIEW_API
+    );
+
+    fetch("http://localhost:8000" + "/api/books")
       .then((res) => res.json())
       .then((data) => {
         this.setState({ books: data });
