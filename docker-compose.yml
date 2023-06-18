@@ -2,10 +2,12 @@ version: "3.9" # optional since v1.27.0
 services:
   web:
     environment:
-      - BASE_URL_BOOK_REVIEW_API=http://localhost:8000
+      - REACT_APP_BASE_URL_BOOK_REVIEW_API=http://localhost:8000
     build: ./book-review-ui
     ports:
-      - "8090:80"
+      - "8090:3000"
+    env_file:
+      - ./book-review-ui/.env
   api:
     build: ./book-review-api
     ports:
