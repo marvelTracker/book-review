@@ -1,8 +1,8 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 
-import { bookRoutes } from "./routes";
+import { bookRoutes, healthCheckRoutes } from "./routes";
 
 dotenv.config();
 
@@ -16,6 +16,7 @@ app.use(
 );
 
 app.use("/api/books", bookRoutes);
+app.use("/healthcheck", healthCheckRoutes);
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
