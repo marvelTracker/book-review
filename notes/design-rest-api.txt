@@ -1,0 +1,116 @@
+Step 1: Create a New API
+	Title: OpenApi Specification for Book Review API
+	Description: API Specification for document of the Book Review API
+	Contact: marvelTracker
+	Version: 1.0.0
+
+Step 2: Identify the Type of API
+	 Public
+
+Step 3: Identify the Server Base URL
+    http://{hostname}:{port}/{directory}
+    http://localhost:3000/api
+
+Step 4: Identify the Api Resources
+    book
+    review
+    author
+    genre
+
+Step 5: Have the resources as plural
+    books (/api/books)
+    authors (/api/authors)
+    reviews (/api/reviews)
+    genres (/api/genres)
+
+Step 6: Define Resource Models
+
+book model:
+    id
+    title
+    authors
+    isbn
+    publication_date
+    publisher
+    edition
+    language
+    format
+    genre
+    synopsis
+    cover_image_url
+    reviews
+    rating
+
+author model:
+    id
+    name
+    nationality
+    biography
+
+review model:
+    id
+    rating
+    text
+    reviewer
+
+genres
+    id
+    text
+
+Step 7: Select the identifier for each resource
+
+book.id
+author.id
+review.id
+genre.id
+
+Step 8: Identify the association for each resource
+
+books
+    /api/books/:id/authors
+    /api/books/:id/reviews
+    /api/books/:id/genres
+    /api/books?genres=''&author=''
+    /api/books
+    /api/books/:id
+reviews
+    /api/reviews?book-id=''
+authors¡¡
+    /api/authors/:id/books
+
+Step 9: Check for URL Complexity
+
+books
+    /api/books/:id/reviews
+    /api/books/:id/genres
+    /api/books/:id/authors
+    /api/books?genres=''&author=''
+    /api/books
+    /api/books/:id
+reviews
+    /api/reviews?book-id=''
+authors
+    /api/authors/:id/books
+
+Step 10: Identify the operations for each resource
+
+books
+    GET, POST /api/books/:id/reviews
+    GET, POST /api/books/:id/genres
+    GET, POST /api/books/:id/authors
+    GET /api/books?genres=''&author=''
+    GET, POST /api/books
+    GET, PUT, DELETE /api/books/:id
+reviews
+    GET /api/reviews?book-id=''
+    GET, POST /api/reviews
+    GET, PUT, DELETE /api/reviews/:id
+authors
+    GET, POST /api/authors/:id/books
+
+Step 11: Identify the parameters required for the operations
+
+Query parameters
+Path parameters
+Headers
+w
