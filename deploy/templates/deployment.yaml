@@ -42,7 +42,7 @@ spec:
             - containerPort: {{.Values.web.containerPort}}
           env:
             - name: REACT_APP_BASE_URL_BOOK_REVIEW_API
-              value: "http://book-review-api:8080"
+              value: "http://book-review-api:8000"
 
       imagePullSecrets:
         - name: {{.Values.imagePullSecrets.web}}
