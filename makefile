@@ -1,4 +1,4 @@
-# Makefile for building, tagging, and pushing book-review-web and book-review-api Docker images
+# Makefile for building, tagging, pushing Docker images, and updating Helm values
 
 # Variables for AWS region and account ID
 AWS_REGION ?= us-east-1
@@ -13,7 +13,7 @@ FULL_WEB_IMAGE_NAME = $(REGISTRY)/book-review-web:latest
 
 # Default target
 .PHONY: all
-all: build-api build-web tag-api tag-web docker-login push-api push-web
+all: build-api build-web tag-api tag-web push-api push-web update-helm-values
 
 # Build the book-review-api Docker image
 .PHONY: build-api
@@ -50,11 +50,34 @@ push-api:
 push-web:
 	docker push $(FULL_WEB_IMAGE_NAME)
 
+# Update Helm values file with new image tag
+.PHONY: update-helm-values
+update-helm-values:
+	yq e '.api.image.tag = strenv(IMAGE_TAG)' -i deploy/values.yaml
+	yq e '.web.image.tag = strenv(IMAGE_TAG)' -i deploy/values.yaml
+
+# Configure Git
+.PHONY: configure-git
+configure-git:
+	git config --global user.email "github-actions@github.com"
+	git config --global user.name "GitHub Actions"
+
+# Commit the updated Helm values file
+.PHONY: commit-helm-values
+commit-helm-values: configure-git
+	git add deploy/values.yaml
+	git commit -m "Update Helm values with new image tag $(IMAGE_TAG)"
+
+# Push the commit to the repository
+.PHONY: push-helm-values
+push-helm-values:
+	git push origin main
+
 # Clean up local Docker images
 .PHONY: clean
 clean:
-    docker rmi book-review-api $(FULL_API_IMAGE_NAME)
-    docker rmi book-review-web $(FULL_WEB_IMAGE_NAME)
+	docker rmi book-review-api $(FULL_API_IMAGE_NAME)
+	docker rmi book-review-web $(FULL_WEB_IMAGE_NAME)
 
 # Example run: make run-api API_TAG=1.0
 .PHONY: run-api
