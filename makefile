@@ -7,6 +7,8 @@ AWS_ACCOUNT_ID ?= your_account_id
 # Docker registry
 REGISTRY = $(AWS_ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com
 
+REPOSITORY = https://github.com/marvelTracker/book-review
+
 # Full image names
 FULL_API_IMAGE_NAME = $(REGISTRY)/book-review-api
 FULL_WEB_IMAGE_NAME = $(REGISTRY)/book-review-web
@@ -68,6 +70,8 @@ configure-git:
 # Commit the updated Helm values file
 .PHONY: commit-helm-values
 commit-helm-values: configure-git
+	@echo "GITHUB_TOKEN" is: $(GITHUB_TOKEN)"
+	git remote set-url origin https://$(GITHUB_TOKEN)@github.com/$(REPOSITORY).git
 	git add deploy/values.yaml
 	git commit -m "Update Helm values with new image tag $(IMAGE_TAG)"
 
