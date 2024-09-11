@@ -30,7 +30,7 @@ jobs:
 
       - name: Tag and Push Docker Images and update helm values
         run: |
-          make tag-api tag-web push-api push-web update-helm-values commit-helm-values push-helm-values \
+          make docker-login tag-api tag-web push-api push-web update-helm-values commit-helm-values push-helm-values \
           AWS_REGION="${AWS_REGION}" \
           AWS_ACCOUNT_ID="${AWS_ACCOUNT_ID}" \
           AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
