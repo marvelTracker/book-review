@@ -70,7 +70,7 @@ configure-git:
 # Commit the updated Helm values file
 .PHONY: commit-helm-values
 commit-helm-values: configure-git
-	@echo "GITHUB_TOKEN" is: $(GITHUB_TOKEN)"
+	@echo "GITHUB_TOKEN is: $(GITHUB_TOKEN)"
 	git remote set-url origin https://$(GITHUB_TOKEN)@github.com/$(REPOSITORY).git
 	git add deploy/values.yaml
 	git commit -m "Update Helm values with new image tag $(IMAGE_TAG)"
