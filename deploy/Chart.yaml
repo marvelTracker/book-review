@@ -1,0 +1,5 @@
+apiVersion: v2
+name: book-review-chart
+description: A Helm chart for book review API and Web
+version: 0.1.0
+appVersion: "1.0"

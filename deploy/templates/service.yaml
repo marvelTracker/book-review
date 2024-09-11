@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: book-review-api
+spec:
+  selector:
+    app: book-review-api
+  ports:
+    - protocol: TCP
+      port: {{.Values.api.servicePort}}
+      targetPort: {{.Values.api.containerPort}}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: book-review-web
+spec:
+  selector:
+    app: book-review-web
+  ports:
+    - protocol: TCP
+      port: {{.Values.web.servicePort}}
+      targetPort: {{.Values.web.containerPort}}
