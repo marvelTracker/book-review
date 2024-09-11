@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: book-review-api
+spec:
+  replicas: {{.Values.api.replicaCount}}
+  selector:
+    matchLabels:
+      app: book-review-api
+  template:
+    metadata:
+      labels:
+        app: book-review-api
+    spec:
+      containers:
+        - name: api
+          image: "{{ .Values.api.image.repository }}:{{ .Values.api.image.tag }}"
+          ports:
+            - containerPort: {{.Values.api.containerPort}}
+      imagePullSecrets:
+        - name: {{.Values.imagePullSecrets.api}}
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: book-review-web
+spec:
+  replicas: {{.Values.web.replicaCount}}
+  selector:
+    matchLabels:
+      app: book-review-web
+  template:
+    metadata:
+      labels:
+        app: book-review-web
+    spec:
+      containers:
+        - name: web
+          image: "{{ .Values.web.image.repository }}:{{ .Values.web.image.tag }}"
+          ports:
+            - containerPort: {{.Values.web.containerPort}}
+      imagePullSecrets:
+        - name: {{.Values.imagePullSecrets.web}}
