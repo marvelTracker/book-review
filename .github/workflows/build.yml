@@ -1,18 +1,15 @@
+name: Tag, Push, and update helm values
+
 on:
   push:
     branches:
       - main
       - release/*
-  pull_request:
-    branches:
-      - main
-  workflow_dispatch:
 
 jobs:
-  my_job:
-    name: build
+  merge_build:
+    name: Tag, Push, Update Helm Values, and Deploy
     runs-on: ubuntu-22.04
-
     env:
       AWS_REGION: ${{ secrets.AWS_REGION }}
       AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
@@ -22,9 +19,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Run Makefile with Secrets
+      - name: Build Docker Images
         run: |
-          make run \
+          make build-api build-web
+
+      - name: Install yq
+        run: |
+          sudo wget https://github.com/mikefarah/yq/releases/download/v4.16.2/yq_linux_amd64 -O /usr/bin/yq
+          sudo chmod +x /usr/bin/yq
+
+      - name: Tag and Push Docker Images and update helm values
+        run: |
+          make tag-api tag-web push-api push-web update-helm-values commit-helm-values push-helm-values \
           AWS_REGION="${AWS_REGION}" \
           AWS_ACCOUNT_ID="${AWS_ACCOUNT_ID}" \
           AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
