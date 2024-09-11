@@ -7,7 +7,7 @@ AWS_ACCOUNT_ID ?= your_account_id
 # Docker registry
 REGISTRY = $(AWS_ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com
 
-REPOSITORY = https://github.com/marvelTracker/book-review
+REPOSITORY = marvelTracker/book-review
 
 # Full image names
 FULL_API_IMAGE_NAME = $(REGISTRY)/book-review-api
