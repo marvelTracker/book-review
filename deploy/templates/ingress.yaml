@@ -3,20 +3,20 @@ kind: Ingress
 metadata:
   name: book-review-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   rules:
     - host: {{.Values.ingress.host}}
       http:
         paths:
-          - path: /api/
+          - path: /api/(.*)
             pathType: Prefix
             backend:
               service:
                 name: {{.Values.api.name}}
                 port:
                   number: {{.Values.api.servicePort}}
-          - path: /
+          - path: /(.*)
             pathType: Prefix
             backend:
               service:
