@@ -28,7 +28,7 @@ build-api:
 # Build the book-review-web Docker image
 .PHONY: build-web
 build-web:
-	docker build -f book-review-ui/Dockerfile -t book-review-web:$(IMAGE_TAG) book-review-ui
+	docker build -f book-review-web/Dockerfile -t book-review-web:$(IMAGE_TAG) book-review-web
 
 # Tag the book-review-api Docker image
 .PHONY: tag-api
@@ -78,7 +78,7 @@ commit-helm-values: configure-git
 # Push the commit to the repository
 .PHONY: push-helm-values
 push-helm-values:
-	git push origin main
+#	git push origin main
 
 # Clean up local Docker images
 .PHONY: clean
