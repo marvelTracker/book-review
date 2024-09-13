@@ -41,7 +41,7 @@ spec:
           ports:
             - containerPort: {{.Values.web.containerPort}}
           env:
-            - name: REACT_APP_BASE_URL_BOOK_REVIEW_API
+            - name: NEXT_API_BASE_URL
               value: "http://book-review-api:8000"
 
       imagePullSecrets:
